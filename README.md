@@ -1,99 +1,258 @@
-# ProductCatalogAPI
+# Products Management System
 
-A robust, extensible ASP.NET Core Web API for managing product catalogs, categories, and users, built with modern **.NET 8** and **C# 12** features.
+> A comprehensive ASP.NET Core Web API implementing CQRS pattern with Clean Architecture for efficient product catalog management.
 
-The solution is structured using the **Vertical Slice Architecture** approach, aligning with **Clean Architecture** principles. It leverages **MediatR** to implement **CQRS** and **event-based notifications**, resulting in a modular, maintainable, and scalable design focused on feature-centric organization and testability.
+[![.NET](https://img.shields.io/badge/.NET-8.0-purple.svg)](https://dotnet.microsoft.com/)
+[![C#](https://img.shields.io/badge/C%23-12.0-blue.svg)](https://docs.microsoft.com/en-us/dotnet/csharp/)
+[![Entity Framework](https://img.shields.io/badge/Entity%20Framework-8.0-green.svg)](https://docs.microsoft.com/en-us/ef/)
+[![MediatR](https://img.shields.io/badge/MediatR-12.4-orange.svg)](https://github.com/jbogard/MediatR)
 
----
+## 🎯 Overview
 
-## 📑 Table of Contents
+This project demonstrates a modern, enterprise-grade **Products Management System** built with **.NET 8** and **C# 12**. It showcases advanced architectural patterns including **CQRS (Command Query Responsibility Segregation)**, **Vertical Slice Architecture**, and **Clean Architecture** principles.
 
-- [Features](#features)
-- [Architecture Overview](#architecture-overview)
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-- [API Usage](#api-usage)
-- [Contributing](#contributing)
-- [License](#license)
+The system provides a robust foundation for managing products, categories, and user authentication with comprehensive logging, validation, and error handling mechanisms.
 
 ---
 
-## ✨ Features
+## ✨ Key Features
 
-- **Product Management:** CRUD operations for products with category association.
-- **Category Management:** Manage product categories.
-- **User Management:** Role-based authorization and authentication.
-- **CQRS Pattern:** Command and Query separation using MediatR.
-- **Event Notifications:** Decoupled event handling for actions like product addition.
-- **Logging:** Centralized application logging with event-driven log creation.
-- **Global Error Handling:** Consistent error responses and exception management.
-- **Pagination:** Efficient data paging for large result sets.
-- **Extensible Repository Pattern:** Generic repository for data access abstraction.
+### 🛍️ **Product Management**
+
+- Complete CRUD operations for products
+- Category-based product organization
+- Advanced product filtering and search
+- Pagination support for large datasets
+
+### 🔐 **Authentication & Authorization**
+
+- JWT-based authentication system
+- Role-based access control
+- Secure user registration and login
+- Token-based API security
+
+### 🏗️ **Architecture Excellence**
+
+- **CQRS Pattern** with MediatR implementation
+- **Vertical Slice Architecture** for feature organization
+- **Repository Pattern** for data access abstraction
+- **Event-driven architecture** with domain events
+
+### 📊 **Monitoring & Logging**
+
+- Structured logging with **Serilog**
+- Database and Seq logging sinks
+- Comprehensive error tracking
+- Performance monitoring capabilities
+
+### 🔧 **Developer Experience**
+
+- **Swagger/OpenAPI** documentation
+- **FluentValidation** for input validation
+- **AutoMapper** for object mapping
+- Global exception handling middleware
 
 ---
 
-## 🧱 Architecture Overview
+## 🏛️ Architecture Overview
 
-The solution is structured around **Clean Architecture** and **CQRS (Command Query Responsibility Segregation)** principles:
+```text
+┌─────────────────────────────────────────────────────────────┐
+│                        API Layer                            │
+│              (Controllers, Middleware)                      │
+└─────────────────────────────────────────────────────────────┘
+                                │
+┌─────────────────────────────────────────────────────────────┐
+│                    Features Layer                           │
+│        ┌─────────────┐  ┌─────────────┐  ┌─────────────┐    │
+│        │  Products   │  │    Auth     │  │   Common    │    │
+│        │   - Add     │  │  - Login    │  │ - Events    │    │
+│        │   - Edit    │  │  - Register │  │ - Handlers  │    │
+│        │   - Delete  │  │             │  │ - DTOs      │    │
+│        │   - Get     │  │             │  │             │    │
+│        └─────────────┘  └─────────────┘  └─────────────┘    │
+└─────────────────────────────────────────────────────────────┘
+                                │
+┌─────────────────────────────────────────────────────────────┐
+│                     Data Layer                              │
+│           (Entity Framework, Repositories)                  │
+└─────────────────────────────────────────────────────────────┘
+```
 
-- **API Layer:** Exposes RESTful endpoints using ASP.NET Core controllers. Handles HTTP requests, model validation, and response formatting.
-- **Features Layer:** Contains business logic grouped by domain features (e.g., Products, Categories). Each feature includes Commands, Queries, Handlers, and Events.
-- **Common Layer:** Shared utilities, middleware, base classes, and infrastructure (e.g., logging, error handling, repositories).
-- **Data Access Layer:** Uses Entity Framework Core for database operations, abstracted via repositories.
-- **MediatR:** Decouples request handling (commands/queries) and notifications (events), promoting single responsibility and testability.
-- **Event Handlers:** Listen for domain events (e.g., `ProductAddedEvent`) and perform side effects such as logging.
+### 🎯 **Core Patterns**
+
+- **CQRS**: Separates read and write operations for optimal performance
+- **Mediator Pattern**: Decouples request/response handling
+- **Repository Pattern**: Abstracts data access logic
+- **Event Sourcing**: Tracks domain events for audit and notifications
 
 ---
 
-## 🧠 Key Patterns & Technologies
+## 🛠️ Technology Stack
 
-- **Repository Pattern:** Abstracts data access for testability and flexibility.
-- **MediatR:** Implements CQRS and event-driven architecture.
-- **Dependency Injection:** All services and handlers are registered for DI.
-- **Global Middleware:** Handles cross-cutting concerns like error handling and logging.
+| Category | Technologies |
+|----------|-------------|
+| **Framework** | .NET 8, ASP.NET Core Web API |
+| **Language** | C# 12 with nullable reference types |
+| **Database** | SQL Server with Entity Framework Core 8.0 |
+| **Architecture** | MediatR, CQRS, Clean Architecture |
+| **Authentication** | JWT Bearer tokens |
+| **Validation** | FluentValidation |
+| **Logging** | Serilog with SQL Server & Seq sinks |
+| **Documentation** | Swagger/OpenAPI |
+| **Mapping** | AutoMapper |
 
 ---
 
 ## 🚀 Getting Started
 
-### ✅ Prerequisites
+### 📋 Prerequisites
 
-- .NET 8 SDK
-- SQL Server or compatible database
+- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+- [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) (LocalDB or full instance)
+- [Visual Studio 2022](https://visualstudio.microsoft.com/) or [VS Code](https://code.visualstudio.com/)
 
-### ⚙️ Setup
+### ⚡ Quick Setup
 
-1. **Clone the repository:**
+1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/your-username/ProductCatalogAPI.git
-   cd ProductCatalogAPI
-   Configure the database:
+   git clone https://github.com/Omar-Abo-Ziada/Products-Managment-System.git
+   cd "Products Management System"
+   ```
 
-Update the connection string in appsettings.json.
+2. **Configure Database**
 
-Apply migrations:
+   ```bash
+   # Update connection string in appsettings.json
+   # Then apply migrations
+   dotnet ef database update
+   ```
 
-bash
-Copy
-dotnet ef database update
-Run the API:
+3. **Run the Application**
 
-bash
-Copy
-dotnet run
-Access Swagger UI:
+   ```bash
+   dotnet run --project "ProductsManagmentSystem"
+   ```
 
-Navigate to https://localhost:5001/swagger for interactive API documentation.
+4. **Access the API**
 
-🤝 Contributing
-Contributions are welcome! Please open issues or submit pull requests for improvements and bug fixes.
+   - **Swagger UI**: `https://localhost:7001/swagger`
+   - **API Base**: `https://localhost:7001/api`
 
-Fork the repository.
+### 🔧 Configuration
 
-Create a new branch:
-git checkout -b feature/your-feature
+Update `appsettings.json` with your settings:
 
-Commit your changes.
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=ProductsManagementDB;Trusted_Connection=true;"
+  },
+  "JwtSettings": {
+    "SecretKey": "your-secret-key-here",
+    "Issuer": "ProductsManagementAPI",
+    "Audience": "ProductsManagementClient"
+  }
+}
+```
 
-Push to your fork and submit a pull request.
+---
+
+## 📚 API Documentation
+
+### 🛍️ Products Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/products` | Get all products (paginated) |
+| `GET` | `/api/products/{id}` | Get product by ID |
+| `GET` | `/api/products/category/{categoryId}` | Get products by category |
+| `POST` | `/api/products` | Create new product |
+| `PUT` | `/api/products/{id}` | Update existing product |
+| `DELETE` | `/api/products/{id}` | Delete product |
+
+### 🔐 Authentication Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/auth/register` | Register new user |
+| `POST` | `/api/auth/login` | User login |
+
+---
+
+## 📁 Project Structure
+
+```text
+ProductsManagmentSystem/
+├── 📁 Common/                 # Shared utilities and base classes
+├── 📁 Configurations/         # Dependency injection configurations
+├── 📁 Data/                   # Database context and configurations
+├── 📁 Entities/               # Domain entities
+│   ├── BaseEntity.cs
+│   ├── Product.cs
+│   ├── Category.cs
+│   ├── User.cs
+│   └── Role.cs
+├── 📁 Features/               # Feature-based organization
+│   ├── 📁 Products/           # Product management features
+│   │   ├── AddProduct/
+│   │   ├── EditProduct/
+│   │   ├── DeleteProduct/
+│   │   ├── GetProduct/
+│   │   ├── GetAllProducts/
+│   │   └── GetProductsByCategory/
+│   ├── 📁 Auth/               # Authentication features
+│   │   ├── Login/
+│   │   └── Register/
+│   └── 📁 Common/             # Shared feature components
+├── 📁 Migrations/             # EF Core migrations
+├── Program.cs                 # Application entry point
+└── appsettings.json          # Configuration settings
+```
+
+---
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+dotnet test
+
+# Run with coverage
+dotnet test --collect:"XPlat Code Coverage"
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feature/AmazingFeature`)
+3. **Commit** your changes (`git commit -m 'Add some AmazingFeature'`)
+4. **Push** to the branch (`git push origin feature/AmazingFeature`)
+5. **Open** a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 👨‍💻 Author
+
+**Omar Abo Ziada**
+
+- GitHub: [@Omar-Abo-Ziada](https://github.com/Omar-Abo-Ziada)
+
+---
+
+## 🙏 Acknowledgments
+
+- Built with ❤️ using .NET 8 and Clean Architecture principles
+- Inspired by modern software development best practices
+- Special thanks to the .NET community for excellent resources and patterns
